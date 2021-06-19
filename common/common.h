@@ -33,7 +33,7 @@ class BALProblem {
                const double point_sigma);
 
   //返回相机维度，如果用四元数的话就是10维，旋转向量的话就是9维
-  int camera_block_size() const { return use_quaternions_ ? 10 : 6; }
+  int camera_block_size() const { return use_quaternions_ ? 10 : 9; }
   //返回路标维度，肯定是3维
   int point_block_size() const { return 3; }
 

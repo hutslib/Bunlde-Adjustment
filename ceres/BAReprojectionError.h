@@ -18,9 +18,6 @@ class BAReprojectionError : public ceres::SizedCostFunction<2,6,3> {
  private:
   double observed_x;
   double observed_y;
-  double cx_;
-  double cy_;
-  double f_;
 };
 
 class PoseSE3Parameterization : public ceres::LocalParameterization {

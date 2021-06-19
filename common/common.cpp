@@ -65,7 +65,7 @@ BALProblem::BALProblem(const std::string &filename, bool use_quaternions) {
     //观测数据中的观测值那两列
     observations_ = new double[2 * num_observations_];
     //所有要优化的参数量，相机个数*9维，路标点个数*3维。
-    num_parameters_ = 6 * num_cameras_ + 3 * num_points_;
+    num_parameters_ = 9 * num_cameras_ + 3 * num_points_;
     //将这些值存进parameters_数组中。这里也就是优化变量的值，只不过全部一列码开，在txt中也就是后半部分，所有优化变量的初始值
     parameters_ = new double[num_parameters_];
 
@@ -132,7 +132,7 @@ void BALProblem::WriteToFile(const std::string &filename) const {
   //这里应该到了输出9维的相机参数
   //用相机个数控制总循环
     for (int i = 0; i < num_cameras(); ++i) {
-        double angleaxis[6];
+        double angleaxis[9];
         if (use_quaternions_) {
             //OutPut in angle-axis format.
             //先把四元数转成轴角，拷贝3个参数
@@ -141,10 +141,10 @@ void BALProblem::WriteToFile(const std::string &filename) const {
             memcpy(angleaxis + 3, parameters_ + 10 * i + 4, 6 * sizeof(double));
         } else {
             //直接将9个参数拷贝出去
-            memcpy(angleaxis, parameters_ + 6 * i, 6 * sizeof(double));
+            memcpy(angleaxis, parameters_ + 9 * i, 9 * sizeof(double));
         }
         //输出到txts
-        for (int j = 0; j < 6; ++j) {
+        for (int j = 0; j < 9; ++j) {
             fprintf(fptr, "%.16g\n", angleaxis[j]);
         }
     }

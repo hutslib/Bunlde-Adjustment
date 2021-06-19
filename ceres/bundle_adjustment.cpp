@@ -13,15 +13,15 @@ int main(int argc, char **argv) {
   }
   if (argc != 2) {
     cout << "usage: bundle_adjustment_ceres bal_data.txt" << endl;
-    filename = "/home/udi/01hts/Bundle_Adjustment/dataset/123.txt";
+    filename = "/home/udi/01hts/Bundle_Adjustment/dataset/problem-16-22106-pre.txt";
     //return 1;
   }
   //step1定义BALProblem类对象从文件读入BAL dataset
   //step2:
 
   BALProblem bal_problem(filename);
-  //bal_problem.Normalize();
-  //bal_problem.Perturb(0.1, 0.5, 0.5);
+  bal_problem.Normalize();
+  bal_problem.Perturb(0.1, 0.5, 0.5);
   bal_problem.WriteToPLYFile("initial.ply");
   SolveBA(bal_problem);
   bal_problem.WriteToPLYFile("final.ply");
